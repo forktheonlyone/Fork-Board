@@ -1,4 +1,4 @@
-# Simple Fork's Board v0.y.z
+# Simple Fork's Board v0.5.2
 
 ## ⚙️ 개발환경
 
