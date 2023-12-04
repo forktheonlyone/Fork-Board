@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Comment Contents</title>
+</head>
+<body>
+<form th:action="@{/comment/updatecomment}" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="id" th:value="${comment.id}">
+    <input type="hidden" name="boardId" th:value="${comment.boardId}">
+
+    <!-- 작성자 필드 추가 -->
+    Writer: <input type="text" name="writer" th:value="${comment.writer}"><br>
+
+    <!-- 댓글 내용 필드 추가 -->
+    Contents: <textarea name="contents" cols="30" rows="10" th:text="${comment.contents}"></textarea> <br>
+
+    <input type="submit" value="댓글수정">
+</form>
+</body>
+</html>
