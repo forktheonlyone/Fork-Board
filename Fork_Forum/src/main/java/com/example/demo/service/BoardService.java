@@ -32,7 +32,7 @@
 
         // ** 학원에서는 /G/
         // ** 집에서는 본인 PC 이름.
-        private final String filePath = "C:/Users/G/Desktop/green/Board Files/";
+        private final String filePath = "C:/shoppingFiles/";
 
 
         // ** paging 을 함수

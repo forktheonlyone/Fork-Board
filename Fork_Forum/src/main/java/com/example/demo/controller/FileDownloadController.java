@@ -17,7 +17,7 @@ public class FileDownloadController {
     @GetMapping("/download/{uuid}/{fileName}")
     public ResponseEntity<Resource> downloadFile(@PathVariable String uuid,
                                                  @PathVariable String fileName) {
-        Path filePath = Paths.get("C:/Users/G/Desktop/green/Board Files/" + uuid + fileName );
+        Path filePath = Paths.get("C:/shoppingFiles/" + uuid + fileName );
 
         try{
             Resource resource = new UrlResource(filePath.toUri());

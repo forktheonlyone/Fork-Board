@@ -5,9 +5,9 @@
     <title>Comment Contents</title>
 </head>
 <body>
-<form th:action="@{/comment/updatecomment}" method="post" enctype="multipart/form-data">
+<form th:action="@{/comment/update}" method="post" enctype="multipart/form-data">
     <input type="hidden" name="id" th:value="${comment.id}">
-    <input type="hidden" name="boardId" th:value="${comment.boardId}">
+    <input type="hidden" name="boardId" th:value="${comment.board.id}">
 
     <!-- 작성자 필드 추가 -->
     Writer: <input type="text" name="writer" th:value="${comment.writer}"><br>

@@ -70,4 +70,9 @@ public class CommentService {
     public Optional<Comment> findById(Long id){
         return commentRepository.findById(id);
     }
+
+    @Transactional
+    public void delete(Long id){
+        commentRepository.deleteById(id);
+    }
 }

@@ -2,79 +2,86 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>detail</title>
+    <title>Detail</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
 </head>
-<body>
-<table>
-    <tr>
-        <th>id</th>
-        <td th:text="${board.id}"></td>
-    </tr>
-    <tr>
-        <th>title</th>
-        <td th:text="${board.getTitle}"></td>
-    </tr>
-    <!--tr>
-        <th>writer</th>
-        <td th:text="${board.getWriter}"></td>
-    </tr-->
-    <tr>
-        <th>date</th>
-        <td th:text="${board.getCreateTime}"></td>
-    </tr>
-    <tr>
-        <th>contents</th>
-        <td th:text="${board.getContents}"></td>
-    </tr>
-</table>
-
-<div th:if="${files != null}">
-    <h3>첨부 파일</h3>
-    <ul>
-        <li th:each="file : ${files}">=
-            <!-- 다운로드 링크 추가 -->
-            <a th:href="@{/download/{uuid}/{filename}(uuid=${file.uuid}, filename=${file.fileName})}">Download</a>
-        </li>
-    </ul>
-</div>
-
-
-
-<button onclick="listReq()">목록</button>
-<button onclick="updateReq()">수정</button>
-<button onclick="deleteReq()">삭제</button>
-
-
-<!-- 댓글 작성 부분 -->
-<div id="comment-write">
-    <input type="text" id="writer" placeholder="작성자">
-    <input type="text" id="contents" placeholder="내용">
-    <button id="comment-write-btn" onclick="commentWrite()">댓글작성</button>
-</div>
-    <!-- 댓글 출력 부분 -->
-<div id="comment-list">
-    <table>
+<body class="bg-dark text-light">
+<div class="container mt-3">
+    <table class="table table-dark table-striped">
         <tr>
-            <th>댓글번호</th>
-            <th>작성자</th>
-            <th>내용</th>
-            <th>수정</th>
+            <th>ID</th>
+            <td th:text="${board.id}"></td>
         </tr>
-        <tr th:each="comment: ${commentList}">
-            <td th:text="${comment.id}"></td>
-            <td th:text="${comment.writer}"></td>
-            <td id="contents-[[${comment.id}]]" th:text="${comment.contents}"></td>
-            <td>
-                <button onclick="editComment([[${comment.id}]])">수정</button>
-            </td>
-
+        <tr>
+            <th>Title</th>
+            <td th:text="${board.title}"></td> <!-- Corrected the property name -->
+        </tr>
+        <!-- Uncomment the following lines if needed -->
+        <!--
+        <tr>
+            <th>Writer</th>
+            <td th:text="${board.writer}"></td>
+        </tr>
+        -->
+        <tr>
+            <th>Date</th>
+            <td th:text="${board.createTime}"></td> <!-- Corrected the property name -->
+        </tr>
+        <tr>
+            <th>Contents</th>
+            <td th:text="${board.contents}"></td> <!-- Corrected the property name -->
         </tr>
     </table>
-    </div>
-</body>
-<script th:inline="javascript">
 
+    <div th:if="${files != null}" class="mt-4">
+        <h3>첨부 파일</h3>
+        <ul class="list-group">
+            <li th:each="file : ${files}" class="list-group-item">
+                <a th:href="@{/download/{uuid}/{filename}(uuid=${file.uuid}, filename=${file.fileName})}" class="text-light">Download</a>
+            </li>
+        </ul>
+    </div>
+
+    <button class="btn btn-primary" onclick="listReq()">목록</button>
+    <button class="btn btn-warning" onclick="updateReq()">수정</button>
+    <button class="btn btn-danger" onclick="deleteReq()">삭제</button>
+
+    <div id="comment-write" class="mt-4">
+        <input type="text" id="writer" class="form-control" placeholder="작성자">
+        <input type="text" id="contents" class="form-control" placeholder="내용">
+        <button class="btn btn-success" id="comment-write-btn" onclick="commentWrite()">댓글 작성</button>
+    </div>
+
+    <div id="comment-list" class="mt-4">
+        <table class="table table-dark table-striped">
+            <thead>
+            <tr>
+                <th>댓글번호</th>
+                <th>작성자</th>
+                <th>내용</th>
+                <th>수정</th>
+                <th>삭제</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="comment: ${commentList}">
+                <td th:text="${comment.id}"></td>
+                <td th:text="${comment.writer}"></td>
+                <td id="contents-[[${comment.id}]]" th:text="${comment.contents}"></td>
+                <td>
+                    <button class="btn btn-warning update" th:data-id="${comment.id}">수정</button>
+                </td>
+                <td>
+                    <button class="btn btn-danger delete" th:data-id="${comment.id}">삭제</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script th:inline="javascript">
     const commentWrite = () => {
         const jsWriter = document.getElementById("writer").value;
         const jsContents = document.getElementById("contents").value;
@@ -92,21 +99,8 @@
             },
             success: function (res) {
                 console.log("요청성공", res);
-                   let output = "<table>";
-                   output += "<tr><th>댓글번호</th>";
-                   output += "<th>작성자</th>";
-                   output += "<th>내용</th>";
-                   output += "<th>수정</th>";  // 수정 버튼을 위한 헤더 추가
-                for (let i in res) {
-                    output += "<tr>";
-                    output += "<td>" + res[i].id + "</td>";
-                    output += "<td>" + res[i].writer + "</td>";
-                    output += "<td>" + res[i].contents + "</td>";
-                    output += "<td><button onclick=\"location.href='/comment/update/" + res[i].id + "'\">수정</button></td>";
-                    output += "</tr>";
-                }
-                output += "</table>";
-                document.getElementById('comment-list').innerHTML = output;
+                const id = [[${board.id}]];
+                location.href = "/board/" + id;
             },
             error: function (err) {
                 console.log("요청실패", err);
@@ -131,38 +125,40 @@
         const id = [[${board.id}]];
         location.href = "/board/delete/" + id;
     }
-    function editComment(id) {
-    const writer = document.getElementById("writer-" + id).textContent;
-    const contents = document.getElementById("contents-" + id).textContent;
-    const form = `
-        <input type="text" id="edit-writer-${id}" value="${writer}">
-        <input type="text" id="edit-contents-${id}" value="${contents}">
-        <button onclick="updateComment(${id})">확인</button>
-    `;
-    document.getElementById("edit-button-" + id).innerHTML = form;
-}
+
     function updateComment(id) {
-    const writer = document.getElementById("edit-writer-" + id).value;
-    const contents = document.getElementById("edit-contents-" + id).value;
-    $.ajax({
-        type: "post",
-        url: "/comment/update",
-        data: {
-            "id": id,
-            "writer": writer,
-            "contents": contents,
-            "boardId": [[${board.id}]]
+    location.href = '/comment/update/' + id;
+}
+fetch
+async function deleteComment(id) {
+    await $.ajax({
+        url: '/comment/delete/' + id,
+        type: 'POST',
+        success: function(result) {
+            window.location.reload();
         },
-        success: function (res) {
-            // 댓글 수정 성공
-            location.reload();
-        },
-        error: function (err) {
-            // 댓글 수정 실패
+        error: function(err) {
             console.log(err);
         }
     });
 }
+    const updateButton = document.querySelectorAll('.update');
 
+    updateButton.forEach(button => {
+        button.addEventListener("click", function() {
+            const id = this.dataset.id;
+            updateComment(id);
+        });
+    });
+
+    const deleteButton = document.querySelectorAll('.delete');
+
+    deleteButton.forEach(button => {
+        button.addEventListener("click", function() {
+            const id = this.dataset.id;
+            deleteComment(id);
+        });
+    });
 </script>
+</body>
 </html>
