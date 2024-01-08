@@ -108,25 +108,25 @@
 
 <br>
 
-![](attachments/Pasted%20image%2020240108160537.png)
+![](Attachments_Image/CommentSave.png)
 ##### `/comment/save`
 댓글의 입력 정보를 받아 저장하고 그 즉시 View로 반환되어 작성된 댓글 확인이 가능합니다.
 
 
-![](attachments/Pasted%20image%2020240108160555.png)
+![](Attachments_Image/AfterCommentSave.png)
 
 #### 2. 댓글 수정
 > 댓글 내용 우측의 수정 버튼을 눌러 상호작용 합니다.
 ##### `/comment/update/{id}`
 작성했던 댓글의 수정버튼을 눌러 작성자와 댓글 내용을 수정합니다.
 
-![](attachments/Pasted%20image%2020240108160724.png)
+![](Attachments_Image/CommentUpdate.png)
 
 #### 3. 댓글 삭제
 > 댓글 내용 우측의 삭제 버튼을 눌러 상호작용 합니다.
 ##### `/comment/delete/{id}`
 작성했던 댓글 내용 우측의 삭제 버튼을 눌러 댓글을 삭제하고 삭제된 게시글 상세페이지를 리로드 합니다.
-![](attachments/Pasted%20image%2020240108160812.png)
+![](Attachments_Image/CommentDelete.png)
 
 ## 📃 업데이트 프리뷰
 ___해당 내용은 예정이며 순서 상관이 없으며 예고없이 추가, 수정, 삭제될 수 있습니다.___
