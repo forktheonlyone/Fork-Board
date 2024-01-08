@@ -38,7 +38,7 @@
         <h3>첨부 파일</h3>
         <ul class="list-group">
             <li th:each="file : ${files}" class="list-group-item">
-                <a th:href="@{/download/{uuid}/{filename}(uuid=${file.uuid}, filename=${file.fileName})}" class="text-light">Download</a>
+                <a th:href="@{/download/{uuid}/{filename}(uuid=${file.uuid}, filename=${file.fileName})}" class="text-light" style="color:black !important;">Download</a>
             </li>
         </ul>
     </div>
